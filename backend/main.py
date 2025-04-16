@@ -95,10 +95,12 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 if not groq_api_key:
     raise HTTPException(status_code=500, detail="GROQ_API_KEY environment variable is not set")
 
+# Initialize Groq client with proper configuration
 llm = ChatGroq(
     api_key=groq_api_key,
-    model_name="llama-3.1-8b-instant",
-    temperature=0.7
+    model_name="qwen-2.5-32b",
+    temperature=0.7,
+    http_client=None  # Explicitly set http_client to None to avoid proxies issue
 )
 
 # Dependency to get the database session
@@ -124,6 +126,8 @@ async def chat_endpoint(message_request: MessageRequest, db: Session = Depends(g
 
         system_prompt = f"""You are a medical advisor chatbot. Your role is to provide general health information and guidance.
         Important rules:
+        * You're allowed to greet the user for the first time (dont greet everytime), ask them basic questions and provide information about yourself
+        * Strictly Answer only medical related questions if asked any question other than medical related do not answer ,
         1. Do not make definitive diagnoses
         2. Always recommend consulting a healthcare professional for specific medical advice
         3. Provide evidence-based information
