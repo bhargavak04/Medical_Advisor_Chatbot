@@ -98,7 +98,7 @@ if not groq_api_key:
 # Initialize Groq client with proper configuration
 llm = ChatGroq(
     api_key=groq_api_key,
-    model_name="qwen-2.5-32b",
+    model_name="llama-3.3-70b-versatile",
     temperature=0.7,
     http_client=None  # Explicitly set http_client to None to avoid proxies issue
 )
@@ -243,4 +243,5 @@ async def update_user_profile(clerk_id: str, user_data: UserProfileUpdate, db: S
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get('PORT', 8000))
+    uvicorn.run(app,host='0.0.0.0', port=port)

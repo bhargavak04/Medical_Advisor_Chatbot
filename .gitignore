@@ -26,4 +26,5 @@ dist-ssr
 # Environment directories
 .env
 env/
+envs/
 __pycache__/
