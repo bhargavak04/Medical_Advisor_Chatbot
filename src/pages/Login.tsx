@@ -15,8 +15,8 @@ const Login = () => {
   }}
   routing="path"
   path="/login"
-  signUpUrl="/signup"
-  fallbackRedirectUrl="https://medical-advisor-chatbot-pied.vercel.app/dashboard"
+  signUpUrl="/signup/sso-callback"
+  fallbackRedirectUrl="/dashboard"
 />
     </div>
   );
