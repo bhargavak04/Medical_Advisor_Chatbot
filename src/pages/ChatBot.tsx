@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
 import { useUser } from '@clerk/clerk-react';
+import ReactMarkdown from 'react-markdown';
+import { Components } from 'react-markdown';
 
 interface Message {
   content: string;
@@ -112,7 +114,9 @@ const ChatBot = () => {
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
-                        <p className="whitespace-pre-wrap">{message.content}</p>
+                        <ReactMarkdown components={{ p: ({ children }) => <p className="whitespace-pre-wrap prose prose-sm max-w-none prose-p:my-1 prose-headings:my-2">{children}</p> }}>
+                          {message.content}
+                        </ReactMarkdown>
                         <p
                           className={`text-xs mt-1 ${
                             message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
@@ -131,14 +135,25 @@ const ChatBot = () => {
 
           {/* Input Form */}
           <form onSubmit={handleSubmit} className="flex items-center space-x-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
-              className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled={isLoading}
-            />
+            <div className="flex-1 relative">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={isLoading}
+              />
+              {isLoading && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                  </div>
+                </div>
+              )}
+            </div>
             <button
               type="submit"
               className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
