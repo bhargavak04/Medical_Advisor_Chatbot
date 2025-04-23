@@ -1,6 +1,6 @@
 import { UserProfile } from '../models/UserProfile';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://medical-advisor-chatbot.onrender.com';
 
 export const fetchUserProfile = async (userId: string): Promise<UserProfile | null> => {
   try {
