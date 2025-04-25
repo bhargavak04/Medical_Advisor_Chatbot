@@ -40,7 +40,7 @@ MedAdvisor is an AI-powered medical advice platform that provides personalized h
 
 1. Clone the repository
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/bhargavak04/Medical_Advisor_Chatbot
    cd medical-advisor-chatbot
    ```
 
